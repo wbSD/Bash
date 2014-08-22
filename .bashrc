@@ -313,7 +313,7 @@ function getScript() {
 
     if [ ! -f x:\\dlj\\.bashrc ]; then
       echo "Script not found, trying backup"
-      curl -s -o $tmpnewfile http://www.biohead.dk/.bashrc
+      curl -s -o $tmpnewfile https://raw.githubusercontent.com/dlj/Bash/master/.bashrc
         else
       echo "Downloading from x"
       curl -s -o $tmpnewfile file:x:\\dlj\\.bashrc
