@@ -2,7 +2,7 @@
 #-------------------------------------------------------------
 # Version
 #-------------------------------------------------------------
-version=17
+version=19
 
 #-------------------------------------------------------------
 # Default settings. Saved after an update
@@ -67,10 +67,15 @@ function cleanbranches {
   if [ $continue == 'YES' ]
     then
       git branch --merged | grep -v "\*" | xargs -n 1 git branch -d
+      git branch --merged | grep -v "\*" | xargs -n 1 git push origin :{}
     else
       echo "Aborting"
   fi
 }
+ function xxx {
+   local stuff=$(git branch --r | grep "origin" | tr -d 'origin/')
+   echo $stuff
+ }
  
 function reset {  
   if [[ -n "$1" ]]; then
@@ -192,7 +197,7 @@ function cpm {
     then
       git checkout -b "CherryPick_"$(getCurrentBranch)"_"$commit
     fi     
-    git cherry-pick $commit
+    git cherry-pick -x $commit
     if [ $? == 1 ]     
     then   
       local diff=$(git diff)
