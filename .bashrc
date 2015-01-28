@@ -43,8 +43,7 @@ function sync {
 }
 
 function sup {
-  git submodule init    
-  git submodule update
+  git submodule update --init --recursive
 }
  
 function cleantemp {
