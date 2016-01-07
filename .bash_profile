@@ -2,12 +2,12 @@
 #-------------------------------------------------------------
 # Version
 #-------------------------------------------------------------
-version=19
+version=1
 
 #-------------------------------------------------------------
 # Default settings. Saved after an update
 #-------------------------------------------------------------
-startUpFolder=/c/Work/WorkBookFork
+startUpFolder=/c/Work/WebVersion
 autoUpdate=true
 betaUpdate=false
 
@@ -275,10 +275,17 @@ function updateScript() {
       local tmpbetaUpdate=$(grep betaUpdate= $tmpnewfile | head -1 | cut -d "=" -f2)
       sed -i.bak "s|betaUpdate=$tmpbetaUpdate|betaUpdate=$betaUpdate|g" $tmpnewfile
       
-      echo "Updating Scripts"      
-      mv ~/.bashrc ~/.bashrcbak   
-      mv $tmpnewfile ~/.bashrc    
-      source ~/.bashrc
+      echo "Updating Scripts"
+      if [ -f ~/.bash_profile] ; then
+	mv ~/.bash_profile ~/.bash_profilebak   
+        #mv $tmpnewfile ~/.bash_profile    
+        #source ~/.bash_profile
+      else
+	mv ~/.bashrc ~/.bashrcbak 
+        mv $tmpnewfile ~/.bashrc    
+        source ~/.bashrc
+      fi
+
       echo "Bash Script updated"               
   else
       echo "No need to update script, exitting"
@@ -315,13 +322,8 @@ function getScript() {
       rm -rf $tmpnewfile >> /dev/null
     fi
 
-    if [ ! -f x:\\dlj\\.bashrc ]; then
-      echo "Script not found, trying backup"
-      curl -s -o $tmpnewfile https://raw.githubusercontent.com/dlj/Bash/master/.bashrc
-        else
-      echo "Downloading from x"
-      curl -s -o $tmpnewfile file:x:\\dlj\\.bashrc
-  fi
+      echo "Getting script from dljs Git"
+      curl -s -o $tmpnewfile https://raw.githubusercontent.com/dlj/Bash/master/.bash_profile
   
   if [ ! -f $tmpnewfile ]; then
       echo "No update file found, exitting";
