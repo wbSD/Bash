@@ -2,7 +2,7 @@
 #-------------------------------------------------------------
 # Version
 #-------------------------------------------------------------
-version=19
+version=21
 
 #-------------------------------------------------------------
 # Default settings. Saved after an update
@@ -278,8 +278,8 @@ function updateScript() {
       echo "Updating Scripts"
       if [ -f ~/.bash_profile] ; then
 	mv ~/.bash_profile ~/.bash_profilebak   
-        #mv $tmpnewfile ~/.bash_profile    
-        #source ~/.bash_profile
+        mv $tmpnewfile ~/.bash_profile    
+        source ~/.bash_profile
       else
 	mv ~/.bashrc ~/.bashrcbak 
         mv $tmpnewfile ~/.bashrc    
