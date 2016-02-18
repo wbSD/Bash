@@ -276,7 +276,7 @@ function updateScript() {
       sed -i.bak "s|betaUpdate=$tmpbetaUpdate|betaUpdate=$betaUpdate|g" $tmpnewfile
       
       echo "Updating Scripts"
-      if [ -f ~/.bash_profile ] ; then
+      if [ -f ~/.bash_profile ]; then
 	mv ~/.bash_profile ~/.bash_profilebak   
         mv $tmpnewfile ~/.bash_profile    
         source ~/.bash_profile
