@@ -328,7 +328,7 @@ function getScript() {
     fi
 
       echo "Getting script from dljs Git"
-      curl -s -o $tmpnewfile https://raw.githubusercontent.com/dlj/Bash/master/.bash_profile
+      curl -s -o $tmpnewfile https://raw.githubusercontent.com/dlj/Bash/master/.bash_profile?rand=$RANDOM
   
   if [ ! -f $tmpnewfile ]; then
       echo "No update file found, exitting";
