@@ -112,7 +112,12 @@ function ch {
 }
   
 function pull {
-  git pull origin $1
+  if ! [ -z "$1" ] 
+  then
+    git pull origin $1
+  else
+    git pull origin $(getCurrentBranch)
+  fi
 }
  
 function push {
