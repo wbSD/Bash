@@ -121,7 +121,7 @@ function pull {
 }
  
 function push {
-  git push origin $(getCurrentBranch)
+  git push origin $(getCurrentBranch) $1
 }
  
 function getCurrentBranch {
