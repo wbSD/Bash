@@ -13,6 +13,7 @@ betaUpdate=false
 myGitUser=
 buddyGitUser=
 buddyBranch="BuddyBranch"
+fixGitPromptShowBranch=true
 
 #-------------------------------------------------------------
 # Aliases
@@ -460,6 +461,17 @@ function chb () {
   
   ch $targetBranch
 }
+
+function fixGitPrompt () {
+	echo "Fixing weirdness so git bash shows the current branch name"
+	update_PS1 () {
+	  PS1="\[\033]0;$TITLEPREFIX:${PWD//[^[:ascii:]]/?}\007\]\n\[\033[32m\]\u@\h \[\033[35m\]$MSYSTEM \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n$ "
+	}
+	shopt -u promptvars
+	PROMPT_COMMAND=update_PS1
+	echo ""
+}
+
 #-------------------------------------------------------------
 # Commands
 #-------------------------------------------------------------
@@ -498,4 +510,7 @@ if [ -f ~/.userscripts ]; then
   source ~/.userscripts
 fi
 echo ""
+if $fixGitPromptShowBranch; then
+	fixGitPrompt;
+fi
 echo "Type commands for commands that are available"
