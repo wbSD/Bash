@@ -235,7 +235,7 @@ git branch -D CherryPick_master_69c99086a9802092760ef76376794bb3d42c2bf3
 
 
 function request () {
-  local repo=`git remote -v | grep push | grep origin | head -n 1 | sed -e "s/.*github.com[:/]\(.*\)\.git.*/\1/"`
+  local repo=`git remote -v | grep ^origin.*\(push\)$ | head -n 1 | sed -e "s/.*github.com[:/]\(.*\)\.git.*/\1/"`
   local branch=$(getCurrentBranch);
   local targetbranch=""
 
