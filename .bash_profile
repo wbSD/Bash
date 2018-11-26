@@ -24,7 +24,6 @@ alias log="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset 
 #-------------------------------------------------------------
 # Variables
 #-------------------------------------------------------------
-workFolders=( "WorkBook.UI" "WorkBook.Client" "WorkBook.Server" )
 tmpnewfile=~/.bashrctmp
 declare -a cherryPickCommits
 declare lastCherryPickBranch
@@ -51,14 +50,11 @@ function sup {
 }
  
 function cleantemp {
-  for i in "${workFolders[@]}"
+  for i in $(find . -type d | grep -E 'obj|bin')
   do
-    if [ -d $i"/bin" ]; then
+    if [ -d $i ]; then
      rm -rf $i"/bin"
   fi
-      if [ -d $i"/obj" ]; then
-     rm -rf $i"/obj"
-  fi  
   done
 }
  
