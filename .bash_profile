@@ -24,6 +24,7 @@ alias log="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset 
 #-------------------------------------------------------------
 # Variables
 #-------------------------------------------------------------
+cleantarget='./WorkBook v9.sln'
 tmpnewfile=~/.bashrctmp
 declare -a cherryPickCommits
 declare lastCherryPickBranch
@@ -50,11 +51,25 @@ function sup {
 }
  
 function cleantemp {
-  for i in $(find . -type d | grep -E 'obj|bin')
-  do
-    if [ -d $i ]; then
-     rm -rf $i"/bin"
+  target=$cleantarget
+  if ! [[ -z "$1" ]]
+  then
+    target=$1
   fi
+  dir=${target%/*}
+  find "$dir" -type d | grep -E 'obj|bin' | while read f
+  do
+    if [ -d "$f" ]; then
+      p=${f%????} #strip trailing /bin or /obj
+	  p=${p#"$dir/"} #strip target directory and forwardslash
+	  if [ "$p" ] #if we got a string left
+	  then
+	    found=$(cat "$target" | grep "$p" | wc -l) #try to find resulting directory in solution file
+	    if [[ $found > 0 ]]; then
+  		  echo "rm -rf $f" #found it in solution, delete!
+	    fi
+	  fi
+    fi
   done
 }
  
